@@ -82,6 +82,19 @@ a {
   list-style: none;
   display: flex;
   flex-direction: column;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: anchor(--table-of-contents-link start);
+    z-index: -1;
+    inline-size: anchor-size(--table-of-contents-link inline);
+    block-size: anchor-size(--table-of-contents-link block);
+    border-radius: 0.25rem;
+    background-color: #e6e6e6;
+    transition-duration: 150ms;
+    transition-property: inset, block-size;
+  }
 }
 
 .table_of_contents-item {
@@ -90,10 +103,13 @@ a {
     padding: 1rem;
     border-radius: 0.25rem;
     color: #666;
-    @media (hover: hover) {
+    @media (any-hover: hover) {
       &:hover {
-        color: #000;
+        color: inherit;
       }
+    }
+    &[aria-current="true"] {
+      anchor-name: --table-of-contents-link;
     }
   }
 }
